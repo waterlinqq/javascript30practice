@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mouse Shadow</title>
+</head>
+<body>
+
+  <div class="hero">
+    <h1 contenteditable>🔥WOAH!</h1>
+  </div>
+
+  <style>
+  html {
+    color: black;
+    font-family: sans-serif;
+  }
+  body {
+    margin: 0;
+  }
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+  }
+  h1 {
+    text-shadow: 10px 10px 0 rgba(0,0,0,1);
+    font-size: 100px;
+  }
+  </style>
+
+<script>
+    const hero = document.querySelector('.hero');
+    const text = hero.querySelector('h1')
+
+
+    function moveShadow(e){
+        let {offsetWidth: width, offsetHeight: height} = hero;
+        let [x,y] = [e.offsetX, e.offsetY]
+        let ShadowLength = 40
+        //hero會冒泡給h1 所以offset照自身算
+        if(this !== e.target){
+            x += e.target.offsetLeft;
+            y += e.target.offsetTop;
+        }
+        // x/width 值是0-1 但是計算基點應該要在中間 所以減去一半 
+        let xShadow = Math.round((x/width - 0.5) *ShadowLength)
+        let yShadow = Math.round((y/height - 0.5) *ShadowLength)
+
+        text.style.textShadow = `${xShadow}px ${yShadow}px 10px red`
+
+    }
+    hero.addEventListener('mousemove',moveShadow);
+</script>
+</body>
+</html>

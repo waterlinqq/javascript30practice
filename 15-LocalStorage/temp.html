@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+const a = 0b011
+const b = 0o011
+const c = 0x011
+console.log(a,b,c)
+
+const d = parseInt('11', 2)
+const e = parseInt('11', 8)
+const f = parseInt('11',16)
+console.log(d,e,f)
+
+const g = Number('0b11') // 3
+const h = Number('0o11') // 9
+const i = Number('0x11')  // 17
+console.log(g,h,i)
+
+const decimalNumber = 125
+console.log(
+    decimalNumber.toString(),
+    decimalNumber.toString(2),
+    decimalNumber.toString(8),
+    decimalNumber.toString(16)
+    )
+
+const x = 0.2 + 0.1
+const y = 0.3 - 0.1
+console.log(x,y)
+console.log(999999999999999)
+console.log(9999999999999999)
+
+const string = "123"
+const number = 123
+console.log(typeof +string, typeof (number+""))
+
+const gift = [{name: "50吋電視", qty: 1},{name: 'ps4', qty: 3} ,{name: "battery", qty: 10}, {name: "100", qty:100}]
+
+function lottery(max,min,index){
+   const prizeName = gift[--index].name
+   const prizeQty = gift [index].qty
+   let winnerArr = []
+   let set = new Set()
+   for(let i = 0; i < prizeQty; i++ ){
+    winnerArr[i] =  Math.floor(Math.random() * (max - min + 1)) + min
+     set.add(...winnerArr)
+    /*if(set.size < prizeQty ){
+
+    }*/
+    
+    }
+  
+   console.log(winnerArr,set)
+}
+
+/*let set = new Set([winnerArr])
+    if (set.size < prizeQty) {
+        winnerArr.splice[i,1]
+        i--;***/
+
+lottery(10,0,3)
+/*console.log(typeof Array, Array instanceof Function, Array instanceof Array)//function true false
+console.log(typeof [], [] instanceof Object, [] instanceof Array)//object true true
+console.log(typeof Object, Object instanceof Function, Object instanceof Object) //function true true
+console.log(typeof {}, {} instanceof Function, {} instanceof Object)
+console.log(typeof NaN, NaN instanceof Number, NaN instanceof Object)
+console.log(typeof null)
+console.log(typeof "")
+console.log(typeof Function)
+console.log(typeof function(){})
+console.log(typeof (typeof 1))
+*/
+
+</script>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Type Ahead 👀</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <form class="search-form">
+    <input type="text" class="search" placeholder="City or State">
+    <ul class="suggestions">
+      <li>Filter for a city</li>
+      <li>or a state</li>
+    </ul>
+  </form>
+<script>
+const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+//取得所有城市資料
+let allCities = [];
+fetch(endpoint)
+.then(data => data.json())
+.then(data => allCities.push(...data)) //concat不會改變原陣列 結果是會回傳一個新陣列
+
+function displayMatch(){
+    let allMatchPlaces = findMatch(this.value)
+    let highlight = this.value
+    let htmlArray = allMatchPlaces.map(place => {
+        //console.log(this)  其實this 沒有改變 可以不需要引用highlight
+        let exp = new RegExp(highlight,"gi")    //可能不只含有一個 
+        let city = place.city.replace(exp,`<span class='hl'>${highlight}</span>`)
+        let state = place.state.replace(exp,`<span class='hl'>${highlight}</span>` )
+        return `<li><span class="name">${city}, ${state}</span><span class="population">${numberWithCommas(place.population)}</span></li>`
+    })
+    suggestions.innerHTML = htmlArray.join("") //join()可以回傳 將陣列合併後的字串  ""合併中間沒有任何字元
+
+}
+
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+function findMatch(wordToMatch){
+    return allCities.filter(place =>{   //要記得加return 不然整個function執行完沒有回傳結果
+        let exp = new RegExp(wordToMatch,"gi")
+        return place.city.match(exp) || place.state.match(exp)
+    })
+}
+const search = document.querySelector(".search")
+const suggestions = document.querySelector(".suggestions")
+
+search.addEventListener("keyup",displayMatch);
+search.addEventListener("change",displayMatch);//可能用滑鼠 但還是要有keyup 因為change反應速度很慢??
+</script>
+</body>
+</html>
